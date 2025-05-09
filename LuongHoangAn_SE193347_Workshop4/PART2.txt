@@ -1,0 +1,22 @@
+PART2
+Part 2: Memory Map and Explanation
+What is stored in the static heap, stack, dynamic heap?
+
+Static Heap: The static heap stores the reference types and methods defined in the classes, like Item, Vase, Statue, and Painting.
+Stack: The stack holds local variables, including the item variable (which is of type Item) and the choice variable (an integer). It also manages the method call stack for the execution of the main method and any other method calls.
+Dynamic Heap: The dynamic heap stores objects created at runtime. In this program, this includes instances of Vase, Statue, and Painting that are created when the user makes a selection.
+What are objects in the program?
+
+The objects in the program are instances of the classes Vase, Statue, and Painting. These are created when the user chooses to create a particular item from the menu presented in the Tester class.
+What is the item variable storing?
+
+The item variable is storing references to objects of type Vase, Statue, or Painting. It is of type Item, allowing it to point to any derived object due to polymorphism.
+Why must you cast to call the method inputVase()/outputVase()?
+
+You must cast the item variable to the specific type (e.g., Vase, Statue, or Painting) because item is declared as type Item. The methods inputVase() and outputVase() are not defined in the Item class but are specific to the Vase class. Thus, to access those methods, the program must know that item is specifically a Vase type.
+What is the error thrown when you cast it wrong?
+
+If you attempt to cast item to a type that it is not currently referencing (e.g., trying to cast a Statue to a Vase), a ClassCastException will be thrown at runtime. This exception indicates that the object cannot be cast to the specified class.
+What methods can you call if you don’t cast the item variable?
+
+If you do not cast the item variable, you can only call methods defined in the Item class, such as input() and output(). Since item is declared as type Item, it only has access to the methods declared in that class and not those that are unique to the derived classes.
