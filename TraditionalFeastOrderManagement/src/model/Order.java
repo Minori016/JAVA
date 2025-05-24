@@ -7,6 +7,7 @@ package model;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  *
@@ -15,10 +16,39 @@ import java.util.Date;
 public class Order implements Serializable{
     private String orderCode;
     private String customerCode ;
-    private String province;
     private String menuId;
     private int numOfTables;
-    private Date eventDate;
+    private String eventDate;
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 59 * hash + Objects.hashCode(this.customerCode);
+        hash = 59 * hash + Objects.hashCode(this.menuId);
+        hash = 59 * hash + Objects.hashCode(this.eventDate);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Order other = (Order) obj;
+        if (!Objects.equals(this.customerCode, other.customerCode)) {
+            return false;
+        }
+        if (!Objects.equals(this.menuId, other.menuId)) {
+            return false;
+        }
+        return Objects.equals(this.eventDate, other.eventDate);
+    }
     
     
     // Tao ma don hang duy nhat khong bi trung lap
@@ -33,17 +63,17 @@ public class Order implements Serializable{
         this.orderCode = generateOrderCode();
         this.customerCode="";
         this.menuId="";
-        this.eventDate= new Date();
+        this.eventDate="";
     }
-    
-     public Order(String customerId, String province, String menuId, int numOfTables, Date eventDate) {
-        this.orderCode = generateOrderCode();
-        this.customerCode = customerId;
-        this.province = province;
+
+    public Order(String customerCode,String menuId, int numOfTables, String eventDate) {
+        this.orderCode = generateOrderCode(); 
+        this.customerCode = customerCode;
         this.menuId = menuId;
         this.numOfTables = numOfTables;
         this.eventDate = eventDate;
     }
+
 
     public String getOrderCode() {
         return orderCode;
@@ -61,13 +91,8 @@ public class Order implements Serializable{
         this.customerCode = customerCode;
     }
 
-    public String getProvince() {
-        return province;
-    }
 
-    public void setProvince(String province) {
-        this.province = province;
-    }
+
 
     public String getMenuId() {
         return menuId;
@@ -79,23 +104,26 @@ public class Order implements Serializable{
 
     public int getNumOfTables() {
         return numOfTables;
+        
     }
 
     public void setNumOfTables(int numOfTables) {
         this.numOfTables = numOfTables;
     }
 
-    public Date getEventDate() {
+    public String getEventDate() {
         return eventDate;
     }
 
-    public void setEventDate(Date eventDate) {
+    public void setEventDate(String eventDate) {
         this.eventDate = eventDate;
     }
 
+
+
     @Override
     public String toString() {
-        return String.format("%s,%s,%s,%d,%s ",customerCode,menuId,eventDate);
+        return String.format("%s,%s,%s,%d,%s ",customerCode,menuId,numOfTables,eventDate);
     }
     
     

@@ -1,6 +1,7 @@
 package utils;
 
 import collection.Customers;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 import model.Customer;
 
@@ -68,6 +69,70 @@ public class Inputter {
     }
         return email;
 }
+    
+    public static String inputSetMenuCode() {
+        String menuCode ="";
+        Scanner sc = new Scanner(System.in);
+        while(true) {
+            System.out.println("Enter set menu code:");
+            menuCode = sc.nextLine();
+            if(menuCode.matches(Acceptable.MENUCODE_VALID)) {
+                break;
+            }   else {
+                System.out.println("Your set menu code is not in our menu!Please try again");
+                
+            }
+            
+        }
+        return menuCode;
+    }
+    
+    
+    public static String inputEventDate() {
+        String date ="";
+        Scanner sc = new Scanner(System.in);
+        while(true) {
+            System.out.println("Enter date to sign up event: (dd-MM-yyyy)");
+            date = sc.nextLine();
+            LocalDateTime ldt = LocalDateTime.parse(date);
+            if(ldt.isAfter(LocalDateTime.now())) {
+                break;
+            }
+            else if(ldt.isBefore(LocalDateTime.now())) {
+                System.out.println("");
+            }
+        }
+        return date;
+    }
+    
+    public static int inputNumOfTables() {
+        int table = 0;
+        Scanner sc = new Scanner(System.in);
+        while(true) {
+            System.out.println("Enter number of tables:");
+            table = sc.nextInt();
+            if(table>0) {
+                break;
+            } else {
+                System.out.println("This information must be greater than 0 , try again pls");
+                
+            }
+            
+           
+        }
+        return table;
+            
+    }
+    
+    public static String getString(String message) {
+    Scanner sc = new Scanner(System.in);
+    System.out.print(message);
+    return sc.nextLine().trim();
+}
+
+    
+    
+    
     
         
     

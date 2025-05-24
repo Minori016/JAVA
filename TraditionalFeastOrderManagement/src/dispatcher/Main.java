@@ -7,6 +7,8 @@ package dispatcher;
 import java.util.Scanner;
 import menu.Menu;
 import collection.Customers;
+import collection.Orders;
+
 import java.util.InputMismatchException;
 import collection.SetMenus;
 /**
@@ -19,8 +21,9 @@ public class Main {
         int choice = 0;
         Customers customerList = new Customers();
         SetMenus menuList = new SetMenus();
+        Orders orderList = new Orders(customerList);
         Scanner sc = new Scanner(System.in);
-
+        
         do {
             try {
 
@@ -45,7 +48,7 @@ public class Main {
                         menuList.showAllMenu();
                         break;
                     case 5:
-
+                        orderList.showAll();
                         break;
                     case 6:
 
