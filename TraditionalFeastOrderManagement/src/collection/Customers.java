@@ -183,8 +183,12 @@ public class Customers extends ArrayList<Customer> implements Workable<Customer>
    
     public static String reorderLastName(String name) {
         name = name.trim().replaceAll("\\s+", " "); // xoa khoang trang thua
-        
         int lastName = name.lastIndexOf(" "); //// tìm khoang space cuoi cung
+        
+         // Nếu không tìm thấy dấu cách (tên chỉ có 1 từ)
+        if (lastName == -1) {
+        return name; // Trả về chính tên đó
+        }
         
         String tempName= name.substring(lastName +1); // lay phan ten sau khoang space cuoi
         String leftovers = name.substring(0, lastName);//lay het tat ca truoc khoang space cuoi

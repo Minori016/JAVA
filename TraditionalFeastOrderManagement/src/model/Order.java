@@ -67,16 +67,17 @@ public class Order implements Serializable{
     }
 
     public Order(String customerCode,String menuId, int numOfTables, String eventDate) {
-        this.orderCode = generateOrderCode(); 
+        
         this.customerCode = customerCode;
         this.menuId = menuId;
         this.numOfTables = numOfTables;
         this.eventDate = eventDate;
-    }
+        this.orderCode = generateOrderCode(); 
+    }   
 
 
     public String getOrderCode() {
-        return orderCode;
+        return generateOrderCode();
     }
 
     public void setOrderCode(String orderCode) {

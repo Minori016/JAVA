@@ -10,10 +10,10 @@ public interface Acceptable {
    public final String NAME_VALID = "^.{2,25}$";
    public final String EMAIL_VALID = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
    public final String PHONE_VALID ="^0\\d{9}$";
-   public final String MENUCODE_VALID ="^[FfWw](00[1-6])$";
- 
+   public final String MENUCODE_VALID ="^[Pp][Ww](00[1-6])$";
+   
         public static boolean isValid(String data, String pattern) {
-        return data.matches(data);
+        return data.matches(pattern);
     }
    
   }

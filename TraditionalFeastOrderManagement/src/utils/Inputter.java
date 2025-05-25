@@ -1,7 +1,10 @@
 package utils;
 
 import collection.Customers;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import model.Customer;
 
@@ -88,26 +91,30 @@ public class Inputter {
     }
     
     
+    
     public static String inputEventDate() {
-        String date ="";
         Scanner sc = new Scanner(System.in);
-        while(true) {
-            System.out.println("Enter date to sign up event: (dd-MM-yyyy)");
-            date = sc.nextLine();
-            LocalDateTime ldt = LocalDateTime.parse(date);
-            if(ldt.isAfter(LocalDateTime.now())) {
-                break;
-            }
-            else if(ldt.isBefore(LocalDateTime.now())) {
-                System.out.println("");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+        while (true) {
+            System.out.print("Enter date (dd-MM-yyyy, must be in future): ");
+            String dateStr = sc.nextLine().trim();
+            try {
+                LocalDate eventDate = LocalDate.parse(dateStr, formatter);
+                if (eventDate.isAfter(LocalDate.now())) {
+                    return dateStr; // << Hợp lệ => Trả về ngay lập tức
+                } else {
+                    System.out.println("Date must be in the future. Please try again.");
+                }
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date or format. Please use dd-MM-yyyy.");
             }
         }
-        return date;
     }
     
     public static int inputNumOfTables() {
         int table = 0;
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in); 
         while(true) {
             System.out.println("Enter number of tables:");
             table = sc.nextInt();

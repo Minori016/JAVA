@@ -27,7 +27,7 @@ public class SetMenus implements Serializable {
             
             String menuId=splitData[0].trim();
             String menuName=splitData[1].trim();
-            double price=Double.parseDouble(splitData[2].trim()); // ep kieu vi price thuoc kieu double kh dung dc cho dang String
+            double price=Double.parseDouble(splitData[2].trim()); 
             String ingredients=splitData[3].trim();
             
             return new SetMenu(menuId, menuName, price, ingredients);

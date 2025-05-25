@@ -21,7 +21,7 @@ public class Main {
         int choice = 0;
         Customers customerList = new Customers();
         SetMenus menuList = new SetMenus();
-        Orders orderList = new Orders(customerList);
+        Orders orderList = new Orders(customerList, menuList);
         Scanner sc = new Scanner(System.in);
         
         do {
@@ -48,7 +48,7 @@ public class Main {
                         menuList.showAllMenu();
                         break;
                     case 5:
-                        orderList.showAll();
+                        orderList.addNew();
                         break;
                     case 6:
 
