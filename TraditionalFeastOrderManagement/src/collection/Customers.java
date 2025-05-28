@@ -3,20 +3,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package collection;
+import java.io.Serializable;
 import model.Customer;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 import utils.Acceptable;
 import utils.Workable;
 import utils.Inputter;
+import utils.FileUtils;
 /**
  *
  * @author xuhoa
  */
 public class Customers extends ArrayList<Customer> implements Workable<Customer> {
-
+    private String filePath ="src/data/customers.dat";
+    boolean saved= false;
     @Override
     public void addNew() {
         Scanner sc = new Scanner(System.in);
@@ -49,7 +51,7 @@ public class Customers extends ArrayList<Customer> implements Workable<Customer>
         while(true) {
               System.out.println("Enter id to be updated");
               String idToUpdate = sc.nextLine().trim();
-              result = searchById(idToUpdate);
+              result = SearchById(idToUpdate);
          if (result !=null) {
               System.out.println("Enter new info to update or pres 'Enter' to skip");
                 break;
@@ -109,10 +111,11 @@ public class Customers extends ArrayList<Customer> implements Workable<Customer>
     }
 
 
-    public Customer searchById(String code) {
+   @Override
+    public Customer SearchById(String id) {
         Customer toSearch = null;
         for (Customer customer : this) {
-            if (customer.getCode().equalsIgnoreCase(code)) {
+            if (customer.getCode().equalsIgnoreCase(id)) {
                 toSearch = customer;
                 break;
             } 
@@ -146,8 +149,7 @@ public class Customers extends ArrayList<Customer> implements Workable<Customer>
             }
         }
         // Sử dụng phương thức sort() của List với Comparator để sắp xếp theo tên
-        nameToFind.sort(Comparator.comparing(customer ->
-                customer.getName().toLowerCase()));
+        java.util.Collections.sort(nameToFind);
     }
     return nameToFind;
         
@@ -194,15 +196,23 @@ public class Customers extends ArrayList<Customer> implements Workable<Customer>
         String leftovers = name.substring(0, lastName);//lay het tat ca truoc khoang space cuoi
         return tempName + " , " +leftovers; // tra ve format (Ten , Ho Ten Dem)
     }
-
-    @Override
-    public void readFromFile() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void saveFromeFile() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    
+    public final void readFile() {
+        
+        this.addAll(FileUtils.readFromFile(this.filePath));
+        this.saved = true;
     }
     
-}
+    public void saveToFile(){
+        FileUtils.saveToFile(this, filePath);
+        this.saved = true;
+        System.out.println("Customers data has been succfully saved to 'customers.dat'");
+    }
+
+    }
+
+  
+
+    
+    
+

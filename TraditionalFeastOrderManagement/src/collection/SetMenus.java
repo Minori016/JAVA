@@ -78,6 +78,22 @@ public class SetMenus implements Serializable {
      public static String formatPrice(double price) {
         DecimalFormat df = new DecimalFormat("#,###");
         return df.format(price);
-}
+}   
+     
+     public SetMenu findMenuById(String menuId) {
+        if (menuId == null || menuId.trim().isEmpty()) {
+            return null;
+        }
+        // Duyệt qua danh sách setMenuList (đã được đọc từ file)
+        for (SetMenu menu : setMenuList) {
+            if (menu.getMenuId().equalsIgnoreCase(menuId)) {
+                return menu; // Trả về SetMenu nếu tìm thấy ID khớp
+            }
+        }
+        return null; // Trả về null nếu không tìm thấy
+    }
 
     }
+    
+
+    

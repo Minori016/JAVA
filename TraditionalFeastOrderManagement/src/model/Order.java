@@ -13,12 +13,13 @@ import java.util.Objects;
  *
  * @author xuhoa
  */
-public class Order implements Serializable{
+public class Order implements Serializable,Comparable<Order>{
     private String orderCode;
     private String customerCode ;
     private String menuId;
     private int numOfTables;
     private String eventDate;
+    
 
     @Override
     public int hashCode() {
@@ -77,7 +78,7 @@ public class Order implements Serializable{
 
 
     public String getOrderCode() {
-        return generateOrderCode();
+        return this.orderCode;
     }
 
     public void setOrderCode(String orderCode) {
@@ -124,7 +125,13 @@ public class Order implements Serializable{
 
     @Override
     public String toString() {
-        return String.format("%s,%s,%s,%d,%s ",customerCode,menuId,numOfTables,eventDate);
+        return String.format("| %-15s | %-12s | %-8s | %-6d | %-10s |",orderCode,customerCode,menuId,numOfTables,eventDate);
+                           
+    }
+
+    @Override
+    public int compareTo(Order o) {
+       return this.eventDate.compareTo(o.eventDate);
     }
     
     

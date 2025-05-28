@@ -1,19 +1,18 @@
 package utils;
 
+
 import collection.Customers;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
+import collection.Orders;
+import collection.SetMenus;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.InputMismatchException;
 import java.util.Scanner;
-import model.Customer;
+
 
 
 public class Inputter {
-
-
-   
- 
     
     public static String gennerateCustomerCode() {
         String r;
@@ -92,25 +91,41 @@ public class Inputter {
     
     
     
-    public static String inputEventDate() {
-        Scanner sc = new Scanner(System.in);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+  public static String inputEventDate() {
+     
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        sdf.setLenient(false); // 
 
         while (true) {
-            System.out.print("Enter date (dd-MM-yyyy, must be in future): ");
-            String dateStr = sc.nextLine().trim();
             try {
-                LocalDate eventDate = LocalDate.parse(dateStr, formatter);
-                if (eventDate.isAfter(LocalDate.now())) {
-                    return dateStr; // << Hợp lệ => Trả về ngay lập tức
+                Scanner sc = new Scanner(System.in);
+                System.out.print("Enter date (dd-MM-yyyy in the future): ");
+                String dateStr = sc.nextLine().trim();
+
+                if (dateStr.isEmpty()) {
+                    System.out.println("Date cannot be empty. Please try again.");
+                    continue;
+                }
+
+                // Parse ngày tháng. Nếu sai (30/02, sai định dạng) sẽ ném ParseException
+                Date thatDay = sdf.parse(dateStr); 
+                
+                // Lấy ngày giờ hiện tại
+                Date today = new Date(); 
+
+                // Kiểm tra xem ngày nhập vào có sau ngày hiện tại không
+                // Lưu ý: Date() bao gồm cả giờ, phút, giây. 
+                // Cách kiểm tra này có thể khác một chút so với LocalDate.isAfter()
+                if (thatDay.after(today)) {
+                    return dateStr;
                 } else {
                     System.out.println("Date must be in the future. Please try again.");
                 }
-            } catch (DateTimeParseException e) {
+            } catch (ParseException e) { 
                 System.out.println("Invalid date or format. Please use dd-MM-yyyy.");
             }
         }
-    }
+}
     
     public static int inputNumOfTables() {
         int table = 0;
@@ -135,8 +150,9 @@ public class Inputter {
     Scanner sc = new Scanner(System.in);
     System.out.print(message);
     return sc.nextLine().trim();
-}
 
+}
+    
     
     
     

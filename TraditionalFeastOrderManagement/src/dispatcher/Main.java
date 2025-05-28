@@ -8,9 +8,9 @@ import java.util.Scanner;
 import menu.Menu;
 import collection.Customers;
 import collection.Orders;
-
 import java.util.InputMismatchException;
 import collection.SetMenus;
+
 /**
  *
  * @author xuhoa
@@ -32,7 +32,6 @@ public class Main {
                 choice = sc.nextInt();
                 switch (choice) {
                     case 1:
-
                         customerList.addNew();
                         customerList.showAll();
                         break;
@@ -48,23 +47,27 @@ public class Main {
                         menuList.showAllMenu();
                         break;
                     case 5:
+                        menuList.readFromFile();
                         orderList.addNew();
+                        
                         break;
                     case 6:
-
+                        orderList.update();
+                        orderList.showAll();
                         break;
                     case 7:
-
+                        customerList.saveToFile();
+                        orderList.saveToFile();
                         break;
                     case 8:
-
+                        Menu.displaySavedList(customerList, orderList, menuList);
                         break;
-
                     default:
-                        break;
+                        System.out.println("Your choice is invalid,cuz we have only 8 features");
+                        
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Invalid choice! we only have 8 features(1-8)");
+                System.out.println("Invalid choice! we only support 8 features(1-8)");
                 sc.nextLine();
             }
 

@@ -4,11 +4,13 @@
  */
 package model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author xuhoa
  */
-public class Customer {
+public class Customer implements Serializable , Comparable<Customer>{
     private String code;
     private String name;
     private String email;
@@ -61,5 +63,12 @@ public class Customer {
     public String toString() {
         return String.format("| %-7s|  %-20s |  %-13s|  %-20s| ",code,name,phoneNumber,email);
     }
+
+    @Override
+    public int compareTo(Customer other) {
+        return this.name.compareToIgnoreCase(other.getName());
+        
+    }
+    
     
 }

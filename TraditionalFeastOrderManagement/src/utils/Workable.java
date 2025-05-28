@@ -11,8 +11,8 @@ package utils;
 public interface Workable<T> {
         void addNew();
         void update();
-        void readFromFile();
-        void saveFromeFile();
+       
         void showAll();
+        T SearchById(String id);
                 
 }

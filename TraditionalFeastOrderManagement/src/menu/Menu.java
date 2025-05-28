@@ -4,6 +4,12 @@
  */
 package menu;
 
+import collection.Customers;
+import collection.Orders;
+import collection.SetMenus;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
 /**
  *
  * @author xuhoa
@@ -27,5 +33,46 @@ public class Menu {
     }
 
     
-    
+     public static void displaySavedList(Customers customerList, Orders orderList, SetMenus menuList) {
+        Scanner sc = new Scanner(System.in);
+       
+       
+            if (customerList.isEmpty() && orderList.isEmpty()) {
+            System.out.println("\n-----------------------------------------");
+            System.out.println("| Does not have any customer information   |");
+            System.out.println("-------------------------------------------");
+            System.out.println("Press Enter to return to main menu...");
+            sc.nextLine(); 
+            return; 
+        }
+        while(true) {
+            try {
+                System.out.println("==============SAVED DATA===================");
+                System.out.println("1. Display Registered Customers List       ");
+                System.out.println("2. Display Succesfully Placed Orders List  ");
+                int choice = sc.nextInt();
+                sc.nextLine();
+                
+                if(choice ==1) {
+                    System.out.println("Registerd Customers List :");
+                    customerList.showAll();
+                    break;
+                }
+                else if(choice ==2) {
+                    System.out.println("Placed Orders List     :");
+                    orderList.showAll();
+                     break;
+                }
+                else {
+                    System.out.println("Return to main menu...");
+                    sc.nextLine();
+                    return;
+                }
+                }
+             catch (InputMismatchException e) {
+                
+                sc.nextLine();
+            }
+        }
+    }
 }
